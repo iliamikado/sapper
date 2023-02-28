@@ -20,13 +20,34 @@ class App extends Component {
         this.sapper = new Sapper(this.size, this.mines);
 
         this.state = {
-            cellsStatus: this.sapper.getVisibleCells()
+            cellsStatus: this.sapper.getVisibleCells(),
+            time: 0,
+            minesLeft: this.mines
         }
+
+        this.timerUpdater = null;
+    }
+
+
+    componentWillUnmount() {
+        clearInterval(this.updateTimer);
+    }
+
+    startTimer = () => {
+        this.startTime = new Date();
+        this.timerUpdater = setInterval(() => {
+            const passedTimeSec = Math.floor((new Date() - this.startTime) / 1000);
+            if (passedTimeSec > 999) {
+                return;
+            }
+            this.setState({time: passedTimeSec});
+        }, 1000);
     }
 
     openCell = (cell) => {
         if (!this.sapper.isStarted()) {
             this.sapper.startGame(cell);
+            this.startTimer()
         } else {
             this.sapper.openCell(cell);
         }
@@ -45,7 +66,10 @@ class App extends Component {
     render() {
         return (
             <div className="app" style={this.style}>
-                <Header width={this.size * this.cellSizePx}/>
+                <Header width={this.size * this.cellSizePx}
+                    mines={this.state.minesLeft}
+                    time={this.state.time}
+                    />
                 <div style={{height: this.borderSize}}></div>
                 <GameField size={this.size}
                     cellSizePx={this.cellSizePx}

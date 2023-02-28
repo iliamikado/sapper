@@ -18,11 +18,15 @@ class GameCell extends Component {
     }
 
     onClick = (e) => {
+        if (this.props.cellStatus === CellStatuses.FLAG) {
+            return;
+        }
         this.props.openCell({x: this.props.x, y: this.props.y})
     }
 
     onRightClick = (e) => {
         e.preventDefault();
+        this.props.markCell({x: this.props.x, y: this.props.y});
     }
 
     render() {
@@ -30,7 +34,11 @@ class GameCell extends Component {
         const {cellStatus} = this.props;
 
         let c = '';
-        if (cellStatus !== CellStatuses.CLOSED) {
+        if (cellStatus === CellStatuses.FLAG) {
+            c = 'f';
+        } else if (cellStatus === CellStatuses.MINE) {
+            c = 'm';
+        } else if (cellStatus !== CellStatuses.CLOSED) {
             c = cellStatus;
         }
 

@@ -14,7 +14,7 @@ class GameField extends Component {
     }
 
     render() {
-        const {size, cellSizePx, cellsStatus, openCell} = this.props;
+        const {size, cellSizePx, cellsStatus, openCell, markCell} = this.props;
 
         const cells = [];
         for (let x = 0; x < size; ++x) {
@@ -24,6 +24,7 @@ class GameField extends Component {
                     key={x * size + y}
                     cellStatus={cellsStatus[x][y]}
                     openCell={openCell}
+                    markCell={markCell}
                     />);
             }
         }

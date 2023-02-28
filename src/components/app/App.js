@@ -25,12 +25,20 @@ class App extends Component {
     }
 
     openCell = (cell) => {
-        console.log(cell);
         if (!this.sapper.isStarted()) {
             this.sapper.startGame(cell);
         } else {
             this.sapper.openCell(cell);
         }
+        this.updateCells();
+    }
+
+    markCell = (cell) => {
+        this.sapper.markCell(cell);
+        this.updateCells();
+    }
+
+    updateCells = () => {
         this.setState({cellsStatus: this.sapper.getVisibleCells()});
     }
 
@@ -43,6 +51,7 @@ class App extends Component {
                     cellSizePx={this.cellSizePx}
                     cellsStatus={this.state.cellsStatus}
                     openCell={this.openCell}
+                    markCell={this.markCell}
                     />
             </div>
         )

@@ -17,7 +17,7 @@ class GameCell extends Component {
         }
     }
 
-    onClick = (e) => {
+    onClick = () => {
         if (this.props.cellStatus === CellStatuses.FLAG) {
             return;
         }
@@ -33,21 +33,30 @@ class GameCell extends Component {
 
         const {cellStatus} = this.props;
 
-        let c = '';
-        if (cellStatus === CellStatuses.FLAG) {
-            c = 'f';
-        } else if (cellStatus === CellStatuses.MINE) {
-            c = 'm';
-        } else if (cellStatus !== CellStatuses.CLOSED) {
-            c = cellStatus;
+        let className = 'cell ';
+
+        switch (cellStatus) {
+            case CellStatuses.CLOSED:
+                className += 'closed';
+                break;
+            case CellStatuses.FLAG:
+                className += 'flag';
+                break;
+            case CellStatuses.MINE:
+                className += 'boom';
+                break;
+            case 0:
+                className += 'empty';
+                break;
+            default:
+                className += `n${cellStatus}`;
         }
 
         return (
-            <div className="game-cell"
+            <div className={className}
                 style={this.style}
                 onClick={this.onClick}
                 onContextMenu={this.onRightClick}>
-                    {c}
             </div>
         );
     }

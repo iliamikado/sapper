@@ -11,7 +11,7 @@ class App extends Component {
         super(props);
         this.size = 16;
         this.mines = 40;
-        this.cellSizePx = 20;
+        this.cellSizePx = 16;
         this.borderSize = this.cellSizePx;
         this.style = {
             width: `${this.size * this.cellSizePx + this.borderSize * 2}px`,

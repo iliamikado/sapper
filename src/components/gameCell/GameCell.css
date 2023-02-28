@@ -3,3 +3,54 @@
     position: absolute;
     border: solid 1px black;
 }
+
+.cell {
+    position: absolute;
+    background: url(../../../public/minesweeper-sprites.png) no-repeat;
+}
+
+.cell.closed {
+    background-position: 0 -51px;
+}
+
+.cell.empty {
+    background-position: -17px -51px;
+}
+
+.cell.flag {
+    background-position: -34px -51px;
+}
+
+.cell.boom {
+    background-position: -101px -51px;
+}
+
+
+
+.cell.n1 {
+    background-position: 0 -68px;
+}
+.cell.n2 {
+    background-position: -17px -68px;
+}
+.cell.n3 {
+    background-position: -34px -68px;
+}
+.cell.n4 {
+    background-position: -51px -68px;
+}
+.cell.n5 {
+    background-position: -68px -68px;
+}
+.cell.n6 {
+    background-position: -84px -68px;
+}
+.cell.n7 {
+    background-position: -101px -68px;
+}
+.cell.n8 {
+    background-position: -118px -68px;
+}
+.cell.n9 {
+    background-position: -135px -68px;
+}

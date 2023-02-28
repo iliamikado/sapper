@@ -1,0 +1,5 @@
+.game-cell {
+    background-color: grey;
+    position: absolute;
+    border: solid 1px black;
+}

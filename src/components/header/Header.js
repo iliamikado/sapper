@@ -18,7 +18,7 @@ class Header extends Component {
     }
 
     render() {
-        const {time, mines} = this.props;
+        const {time, mines, newGame} = this.props;
 
         return (
             <div className="header" style={this.style}>
@@ -28,7 +28,7 @@ class Header extends Component {
                     <div className={`digit d${mines % 10}`}></div>
                 </div>
 
-                <div className={`face ${this.props.face}`}></div>
+                <div className={`face ${this.props.face}`} onClick={newGame}></div>
 
                 <div className="timer">
                     <div className={`digit d${Math.floor(time / 100) % 10}`}></div>

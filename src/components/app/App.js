@@ -19,18 +19,28 @@ class App extends Component {
             padding: `${this.borderSize}px 0 ${this.borderSize}px 0`
         }
         this.sapper = new Sapper(this.size, this.mines);
-
         this.state = {
             cellsStatus: this.sapper.getVisibleCells(),
             time: 0,
             minesLeft: this.mines,
             face: Faces.SMILE,
             playable: true
-        }
+        };
 
         this.timerUpdater = null;
     }
 
+    newGame = () => {
+        this.sapper = new Sapper(this.size, this.mines);
+        clearInterval(this.timerUpdater);
+        this.setState({
+            cellsStatus: this.sapper.getVisibleCells(),
+            time: 0,
+            minesLeft: this.mines,
+            face: Faces.SMILE,
+            playable: true
+        });
+    }
 
     componentWillUnmount() {
         clearInterval(this.updateTimer);
@@ -95,6 +105,7 @@ class App extends Component {
                     mines={this.state.minesLeft}
                     time={this.state.time}
                     face={this.state.face}
+                    newGame={this.newGame}
                     />
                 <div style={{height: this.borderSize}}></div>
                 <GameField size={this.size}

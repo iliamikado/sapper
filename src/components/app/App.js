@@ -11,7 +11,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.size = 16;
-        this.mines = 10;
+        this.mines = 40;
         this.cellSizePx = 16;
         this.borderSize = this.cellSizePx;
         this.style = {

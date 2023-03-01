@@ -11,7 +11,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.size = 16;
-        this.mines = 40;
+        this.mines = 10;
         this.cellSizePx = 16;
         this.borderSize = this.cellSizePx;
         this.style = {
@@ -24,7 +24,8 @@ class App extends Component {
             cellsStatus: this.sapper.getVisibleCells(),
             time: 0,
             minesLeft: this.mines,
-            face: Faces.SMILE
+            face: Faces.SMILE,
+            playable: true
         }
 
         this.timerUpdater = null;
@@ -54,10 +55,17 @@ class App extends Component {
             this.sapper.openCell(cell);
         }
         this.updateCells();
+
+        if (this.sapper.isDefeat()) {
+            this.endGame(false);
+        } else if (this.sapper.isVictory()) {
+            this.endGame(true);
+        }
     }
 
     markCell = (cell) => {
         this.sapper.markCell(cell);
+        this.setState({minesLeft: this.sapper.getMinesLeft()});
         this.updateCells();
     }
 
@@ -67,6 +75,17 @@ class App extends Component {
 
     setFace = (face) => {
         this.setState({face});
+    }
+
+    endGame = (win) => {
+        if (win) {
+            this.setFace(Faces.COOL);  
+        } else {
+            this.setFace(Faces.DEAD);  
+        }
+        this.setState({playable: false});
+        this.setState({minesLeft: this.sapper.getMinesLeft()});
+        clearInterval(this.timerUpdater);
     }
 
     render() {
@@ -84,6 +103,7 @@ class App extends Component {
                     openCell={this.openCell}
                     markCell={this.markCell}
                     setFace={this.setFace}
+                    playable={this.state.playable}
                     />
             </div>
         )

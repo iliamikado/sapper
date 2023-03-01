@@ -1,8 +1,10 @@
 
 const CellStatuses = Object.freeze({
-    MINE:   Symbol("Mine"),
-    FLAG:   Symbol("Flag"),
-    CLOSED: Symbol("Closed")
+    MINE:       Symbol("Mine"),
+    FLAG:       Symbol("Flag"),
+    CLOSED:     Symbol("Closed"),
+    BOOM:       Symbol("Boom"),
+    WRONG_MINE: Symbol("Wrong mine")
 });
 
 class Sapper {
@@ -19,6 +21,11 @@ class Sapper {
             }
         }
         this.stated = false;
+        this.victory = false;
+        this.defeat = false;
+
+        this.openedCells = 0;
+        this.minesLeft = mines;
     }
 
     startGame({x, y}) {
@@ -43,13 +50,25 @@ class Sapper {
 
     openCell(cell) {
         const status = this.cells[cell.x][cell.y];
+
+        if (status === CellStatuses.MINE) {
+            this.visibleCells[cell.x][cell.y] = CellStatuses.BOOM;
+            this.endGameByLosing();
+            return;
+        }
+
         this.visibleCells[cell.x][cell.y] = status;
         if (status === 0) {
-            this.getNeighbours(cell).forEach(cell => {
-                if (this.visibleCells[cell.x][cell.y] === CellStatuses.CLOSED) {
-                    this.openCell(cell);
+            this.getNeighbours(cell).forEach(neighbour => {
+                if (this.visibleCells[neighbour.x][neighbour.y] === CellStatuses.CLOSED) {
+                    this.openCell(neighbour);
                 }
             });
+        }
+        this.openedCells += 1;
+
+        if (this.openedCells + this.mines === this.size * this.size) {
+            this.endGameByWinning();
         }
     }
 
@@ -57,9 +76,11 @@ class Sapper {
         switch (this.visibleCells[cell.x][cell.y]) {
             case CellStatuses.CLOSED:
                 this.visibleCells[cell.x][cell.y] = CellStatuses.FLAG;
+                this.minesLeft -= 1;
                 break;
             case CellStatuses.FLAG:
                 this.visibleCells[cell.x][cell.y] = CellStatuses.CLOSED;
+                this.minesLeft += 1;
                 break;
         }
     }
@@ -76,6 +97,31 @@ class Sapper {
         return {
             x: Math.floor(hash / this.size),
             y: hash % this.size
+        }
+    }
+
+    endGameByLosing() {
+        this.defeat = true;
+        for (let x = 0; x < this.size; ++x) {
+            for (let y  = 0; y < this.size; ++y) {
+                if (this.visibleCells[x][y] === CellStatuses.CLOSED && this.cells[x][y] === CellStatuses.MINE) {
+                    this.visibleCells[x][y] = CellStatuses.MINE;
+                } else if (this.visibleCells[x][y] === CellStatuses.FLAG && this.cells[x][y] !== CellStatuses.MINE) {
+                    this.visibleCells[x][y] = CellStatuses.WRONG_MINE;
+                }
+            }
+        }
+    }
+
+    endGameByWinning() {
+        this.victory = true;
+        this.minesLeft = 0;
+        for (let x = 0; x < this.size; ++x) {
+            for (let y  = 0; y < this.size; ++y) {
+                if (this.cells[x][y] === CellStatuses.MINE) {
+                    this.visibleCells[x][y] = CellStatuses.FLAG;
+                }
+            }
         }
     }
 
@@ -121,6 +167,18 @@ class Sapper {
 
     isStarted() {
         return this.stated;
+    }
+
+    isDefeat() {
+        return this.defeat;
+    }
+
+    isVictory() {
+        return this.victory;
+    }
+
+    getMinesLeft() {
+        return Math.max(this.minesLeft, 0);
     }
 }
 

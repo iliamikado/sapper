@@ -54,7 +54,7 @@ class GameCell extends Component {
 
     render() {
 
-        const {cellStatus} = this.props;
+        const {cellStatus, playable} = this.props;
 
         let className = 'cell ';
 
@@ -65,8 +65,14 @@ class GameCell extends Component {
             case CellStatuses.FLAG:
                 className += 'flag';
                 break;
-            case CellStatuses.MINE:
+            case CellStatuses.BOOM:
                 className += 'boom';
+                break;
+            case CellStatuses.MINE:
+                className += 'mine';
+                break;
+            case CellStatuses.WRONG_MINE:
+                className += 'wrong-mine';
                 break;
             case 0:
                 className += 'empty';
@@ -79,17 +85,28 @@ class GameCell extends Component {
             className += ' empty';
         }
 
-        return (
-            <div className={className}
-                style={this.style}
-                onClick={this.onClick}
-                onContextMenu={this.onRightClick}
-                onPointerDown={this.onPointerDown}
-                onPointerOut={this.onPointerOut}
-                onPointerUp={this.onPointerOut}
-                >
-            </div>
-        );
+        if (playable) {
+            return (
+                <div className={className}
+                    style={this.style}
+                    onClick={this.onClick}
+                    onContextMenu={this.onRightClick}
+                    onPointerDown={this.onPointerDown}
+                    onPointerOut={this.onPointerOut}
+                    onPointerUp={this.onPointerOut}
+                    >
+                </div>
+            );
+        } else {
+            return (
+                <div className={className}
+                    style={this.style}
+                    onContextMenu={(e) => {e.preventDefault()}}
+                    >
+                </div>
+            )
+        }
+
     }
 }
 

@@ -12,17 +12,20 @@
 .cell.closed {
     background-position: 0 -51px;
 }
-
 .cell.empty {
     background-position: -17px -51px;
 }
-
 .cell.flag {
     background-position: -34px -51px;
 }
-
+.cell.mine {
+    background-position: -85px -51px;
+}
 .cell.boom {
     background-position: -101px -51px;
+}
+.cell.wrong-mine {
+    background-position: -119px -51px;
 }
 
 

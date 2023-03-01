@@ -108,7 +108,9 @@ class Sapper {
         this.defeat = true;
         for (let x = 0; x < this.size; ++x) {
             for (let y  = 0; y < this.size; ++y) {
-                if (this.visibleCells[x][y] === CellStatuses.CLOSED && this.cells[x][y] === CellStatuses.MINE) {
+                if ((this.visibleCells[x][y] === CellStatuses.CLOSED
+                        || this.visibleCells[x][y] === CellStatuses.QUESTION)
+                        && this.cells[x][y] === CellStatuses.MINE) {
                     this.visibleCells[x][y] = CellStatuses.MINE;
                 } else if (this.visibleCells[x][y] === CellStatuses.FLAG && this.cells[x][y] !== CellStatuses.MINE) {
                     this.visibleCells[x][y] = CellStatuses.WRONG_MINE;

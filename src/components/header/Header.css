@@ -24,6 +24,19 @@
 .smile {
     background-position: 0 -24px;
 }
+.scared {
+    background-position: -54px -24px;
+}
+.cool {
+    background-position: -81px -24px;
+}
+.dead {
+    background-position: -108px -24px;
+}
+
+.face:active {
+    background-position: -27px -24px;
+}
 
 .timer {
     position: absolute;

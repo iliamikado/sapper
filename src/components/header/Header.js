@@ -2,6 +2,13 @@ import { Component } from "react";
 
 import './Header.css';
 
+const Faces = Object.freeze({
+    SMILE:  'smile',
+    SCARED: 'scared',
+    COOL:   'cool',
+    DEAD:   'dead'
+});
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +28,7 @@ class Header extends Component {
                     <div className={`digit d${mines % 10}`}></div>
                 </div>
 
-                <div className="face smile"></div>
+                <div className={`face ${this.props.face}`}></div>
 
                 <div className="timer">
                     <div className={`digit d${Math.floor(time / 100) % 10}`}></div>
@@ -34,3 +41,4 @@ class Header extends Component {
 }
 
 export default Header;
+export {Faces};

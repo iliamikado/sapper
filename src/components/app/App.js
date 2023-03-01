@@ -3,6 +3,7 @@ import Sapper from "../../logic/Sapper";
 
 import GameField from "../gameField/GameField";
 import Header from "../header/Header";
+import { Faces } from "../header/Header";
 
 import './App.css';
 
@@ -22,7 +23,8 @@ class App extends Component {
         this.state = {
             cellsStatus: this.sapper.getVisibleCells(),
             time: 0,
-            minesLeft: this.mines
+            minesLeft: this.mines,
+            face: Faces.SMILE
         }
 
         this.timerUpdater = null;
@@ -63,12 +65,17 @@ class App extends Component {
         this.setState({cellsStatus: this.sapper.getVisibleCells()});
     }
 
+    setFace = (face) => {
+        this.setState({face});
+    }
+
     render() {
         return (
             <div className="app" style={this.style}>
                 <Header width={this.size * this.cellSizePx}
                     mines={this.state.minesLeft}
                     time={this.state.time}
+                    face={this.state.face}
                     />
                 <div style={{height: this.borderSize}}></div>
                 <GameField size={this.size}
@@ -76,6 +83,7 @@ class App extends Component {
                     cellsStatus={this.state.cellsStatus}
                     openCell={this.openCell}
                     markCell={this.markCell}
+                    setFace={this.setFace}
                     />
             </div>
         )

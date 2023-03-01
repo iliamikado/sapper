@@ -23,7 +23,7 @@ class GameCell extends Component {
     }
 
     onClick = () => {
-        if (this.props.cellStatus === CellStatuses.FLAG) {
+        if (this.props.cellStatus !== CellStatuses.CLOSED) {
             return;
         }
         this.props.openCell({x: this.props.x, y: this.props.y})
@@ -76,6 +76,9 @@ class GameCell extends Component {
                 break;
             case 0:
                 className += 'empty';
+                break;
+            case CellStatuses.QUESTION:
+                className += 'question';
                 break;
             default:
                 className += `n${cellStatus}`;

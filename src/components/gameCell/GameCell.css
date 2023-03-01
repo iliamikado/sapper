@@ -27,6 +27,9 @@
 .cell.wrong-mine {
     background-position: -119px -51px;
 }
+.cell.question {
+    background-position: -51px -51px;
+}
 
 
 

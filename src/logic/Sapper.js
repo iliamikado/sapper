@@ -4,7 +4,8 @@ const CellStatuses = Object.freeze({
     FLAG:       Symbol("Flag"),
     CLOSED:     Symbol("Closed"),
     BOOM:       Symbol("Boom"),
-    WRONG_MINE: Symbol("Wrong mine")
+    WRONG_MINE: Symbol("Wrong mine"),
+    QUESTION:   Symbol("Question")
 });
 
 class Sapper {
@@ -79,8 +80,11 @@ class Sapper {
                 this.minesLeft -= 1;
                 break;
             case CellStatuses.FLAG:
-                this.visibleCells[cell.x][cell.y] = CellStatuses.CLOSED;
+                this.visibleCells[cell.x][cell.y] = CellStatuses.QUESTION;
                 this.minesLeft += 1;
+                break;
+            case CellStatuses.QUESTION:
+                this.visibleCells[cell.x][cell.y] = CellStatuses.CLOSED;
                 break;
         }
     }

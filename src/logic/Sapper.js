@@ -73,6 +73,21 @@ class Sapper {
         }
     }
 
+    openCellsByNumber(cell) {
+        const mines = this.visibleCells[cell.x][cell.y];
+        if (typeof mines !== 'number') {
+            return;
+        }
+        if (this.getNeighbours(cell).filter(({x, y}) => (this.visibleCells[x][y] === CellStatuses.FLAG)).length !== mines) {
+            return;
+        }
+        this.getNeighbours(cell).forEach(({x, y}) => {
+            if (this.visibleCells[x][y] === CellStatuses.CLOSED) {
+                this.openCell({x, y});
+            }
+        });
+    }
+
     markCell(cell) {
         switch (this.visibleCells[cell.x][cell.y]) {
             case CellStatuses.CLOSED:

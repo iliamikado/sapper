@@ -23,7 +23,10 @@ class GameCell extends Component {
     }
 
     onClick = () => {
-        if (this.props.cellStatus !== CellStatuses.CLOSED) {
+        if (typeof this.props.cellStatus === 'number' && this.props.cellStatus !== 0) {
+            this.props.openCellsByNumber({x: this.props.x, y: this.props.y});
+            return;
+        } else if (this.props.cellStatus !== CellStatuses.CLOSED) {
             return;
         }
         this.props.openCell({x: this.props.x, y: this.props.y})

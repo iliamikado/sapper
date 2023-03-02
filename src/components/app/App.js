@@ -65,12 +65,11 @@ class App extends Component {
             this.sapper.openCell(cell);
         }
         this.updateCells();
+    }
 
-        if (this.sapper.isDefeat()) {
-            this.endGame(false);
-        } else if (this.sapper.isVictory()) {
-            this.endGame(true);
-        }
+    openCellsByNumber = (cell) => {
+        this.sapper.openCellsByNumber(cell);
+        this.updateCells();
     }
 
     markCell = (cell) => {
@@ -81,6 +80,12 @@ class App extends Component {
 
     updateCells = () => {
         this.setState({cellsStatus: this.sapper.getVisibleCells()});
+
+        if (this.sapper.isDefeat()) {
+            this.endGame(false);
+        } else if (this.sapper.isVictory()) {
+            this.endGame(true);
+        }
     }
 
     setFace = (face) => {
@@ -115,6 +120,7 @@ class App extends Component {
                     markCell={this.markCell}
                     setFace={this.setFace}
                     playable={this.state.playable}
+                    openCellsByNumber={this.openCellsByNumber}
                     />
             </div>
         )

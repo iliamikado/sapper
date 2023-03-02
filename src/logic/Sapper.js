@@ -33,6 +33,7 @@ class Sapper {
         this.stated = true;
         const emptyCells = new Set(Array(this.size * this.size).keys());
         emptyCells.delete(this.getCellHash({x, y}));
+        this.getNeighbours({x, y}).forEach(neighbour => {emptyCells.delete(this.getCellHash(neighbour))});
         for (let i = 0; i < this.mines; ++i) {
             const cellHash = this.getRandomCell(emptyCells);
             emptyCells.delete(cellHash);

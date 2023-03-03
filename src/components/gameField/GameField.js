@@ -13,6 +13,11 @@ class GameField extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps) {
+        const {cellsStatus, playable} = this.props;
+        return cellsStatus !== nextProps.cellsStatus || playable !== nextProps.playable;
+    }
+
     render() {
         const {size, cellSizePx, cellsStatus, openCell, markCell, setFace, playable, openCellsByNumber} = this.props;
 

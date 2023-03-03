@@ -22,6 +22,16 @@ class GameCell extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.pressed !== this.state.pressed) {
+            return true;
+        }
+        if (nextProps.playable !== this.props.playable) {
+            return true;
+        }
+        return nextProps.cellStatus !== this.props.cellStatus;
+    }
+
     onClick = () => {
         if (typeof this.props.cellStatus === 'number' && this.props.cellStatus !== 0) {
             this.props.openCellsByNumber({x: this.props.x, y: this.props.y});

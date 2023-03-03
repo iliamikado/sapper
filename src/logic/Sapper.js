@@ -184,7 +184,7 @@ class Sapper {
     }
 
     getVisibleCells() {
-        return this.visibleCells;
+        return this.visibleCells.slice();
     }
 
     isStarted() {

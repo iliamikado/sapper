@@ -20,4 +20,4 @@ npm start
 The game is available here: https://sapper-vk.web.app
 
 ## Tips
-If the size is too small use Ctrl + in your browser to enladge the game field  
+If the size is too small use Ctrl + in your browser to enlarge the game field  

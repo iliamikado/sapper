@@ -1,5 +1,5 @@
 # Sapper
-It is a clone of an old popular game [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) but written on JavaScript with React
+It is a clone of the old popular game [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) but written on JavaScript with React
 
 ## Local Installation guide
 
@@ -20,4 +20,4 @@ npm start
 The game is available here: https://sapper-vk.web.app
 
 ## Tips
-If the size is too small use Ctrl + in your browser to enladge the game field  
+If the size is too small use Ctrl + in your browser to enlarge the game field  

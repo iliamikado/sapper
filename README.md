@@ -1,5 +1,5 @@
 # Sapper
-It is a clone of an old popular game [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) but written on JavaScript with React
+It is a clone of the old popular game [Minesweeper](https://en.wikipedia.org/wiki/Minesweeper_(video_game)) but written on JavaScript with React
 
 ## Local Installation guide
 
